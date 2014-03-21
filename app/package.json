@@ -1,0 +1,31 @@
+{
+  "main": "sources/index.html",
+  "name": "ri18nedit",
+  "description": "",
+  "version": "0.0.0",
+  "window": {
+    "title": "node-webkit demo",
+    /*"icon": "link.png",*/
+    "toolbar": false,
+    "frame": true,
+    "width": 800,
+    "height": 500,
+    "position": "mouse",
+    "min_width": 400,
+    "min_height": 200,
+    "max_width": 800,
+    "max_height": 600
+  },
+  "webkit": {
+    "plugin": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liviuignat/ri18nedit.git"
+  },
+  "author": "Liviu Ignat",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/liviuignat/ri18nedit/issues"
+  }
+}
