@@ -18,6 +18,10 @@
     "angular-ui": "~0.4.0",
     "angular-ui-bootstrap": "~0.10.0",
     "bootstrap": "~3.1.1",
-    "JSONedit": "https://github.com/mb21/JSONedit"
+    "angular-route": "~1.2.14",
+    "angular-resource": "~1.2.14",
+    "angular-cache": "~2.3.3",
+    "JSONedit": "https://github.com/liviuignat/JSONedit.git",
+    "jquery-ui": "~1.10.4"
   }
 }

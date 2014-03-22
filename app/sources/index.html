@@ -1,8 +1,33 @@
 <html lang="en" class="">
-    <head>
-        <title>Require tool</title>
-    </head>
-    <body>
-        First page
-    </body>
+	<head>
+		<meta charset="utf-8">
+		<title>Require tool</title>
+		<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="libs/angular-ui/build/angular-ui.css">
+		<link rel="stylesheet" href="libs/JSONedit/css/styles.css">
+		<link rel="stylesheet" href="css/styles.css">
+
+		<script src="libs/jquery/dist/jquery.js"></script>
+		<script src="libs/jquery-ui/ui/jquery-ui.js"></script>
+		<script src="libs/angular/angular.js"></script>
+    <script src="libs/angular-route/angular-route.js"></script>
+    <script src="libs/angular-cache/dist/angular-cache.js"></script>
+    <script src="libs/angular-resource/angular-resource.js"></script>
+    <script src="libs/angular-ui/build/angular-ui.js"></script>
+    <script src="libs/angular-ui-bootstrap/src/tabs/tabs.js"></script>
+    <script src="libs/JSONedit/lib/angular-ui/multiSortable.js"></script>
+  </head>
+  <body ng-app="rie">
+    <div class="main-container container" ng-view=""></div>
+
+    <script src="app.js"></script>
+    <script src="services/NodeRequireJsSetupService.js"></script>
+    <script src="services/NodeFileReaderService.js"></script>
+    <script src="services/TranslationsService.js"></script>
+    <script src="controllers/EditorController.js"></script>
+    <script src="directives/JSONeditDirective.js"></script>
+
+    <script type="text/javascript">
+    </script>
+  </body>
 </html>

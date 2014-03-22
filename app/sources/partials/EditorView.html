@@ -1,0 +1,14 @@
+<tabset>
+	<tab ng-repeat="file in files" heading="{{file.name}}">
+      <tabset>
+				<tab ng-repeat="language in file.languages" heading="{{language.name}}">
+			      <div class="jsonView" defocus>
+					    <json child="language.content" type="'object'"></json>
+					</div>
+					<div>
+				    <textarea>{{ getJsonString(language.content) }}</textarea>
+				</div>
+			  </tab>
+			</tabset>
+  </tab>
+</tabset>
