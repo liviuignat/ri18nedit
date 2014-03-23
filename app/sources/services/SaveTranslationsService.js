@@ -40,7 +40,6 @@
                         fs = require('fs');
 
                     translations.languages.forEach(function(translation) {
-                        debugger;
                         var pathToSave = path.join(filePath, fileName);
                         if (!translation.isRoot) {
                             var pathExists = path.existsSync(pathToSave);

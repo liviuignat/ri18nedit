@@ -2,7 +2,10 @@ body {
 	font-size: 1em;
 }
 
+.jsonView input {
+	padding:0px;
+}
+
 .jsonLiteral>input {
-	/*width: 500px;
-	padding:0px;*/
+	width: 500px;
 }

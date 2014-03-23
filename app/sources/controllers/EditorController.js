@@ -8,15 +8,6 @@
             NodeRequireJsSetupService.init();
 
             var translations = TranslationsService.getTranslations();
-
-            /*translations.files[0].languages[0].content = global.root;
-    translations.files[0].languages[1].content = globalRo;*/
-
-
-
-
-            //JSONSyncService.syncObject(translations.files[0].languages[0].content, translations.files[0].languages[1].content);
-
             $scope.files = translations.files;
 
             $scope.getJsonString = function(json) {
@@ -46,10 +37,10 @@
             };
 
             $scope.saveFiles = function() {
-                var translation = $scope.files[0];
-                debugger;
-                var file = SaveTranslationsService.writeTranslationTree('C:\\translations', translation);
-                debugger;
+                var path = require('path'),
+                    translation = $scope.files[0],
+                    location = path.dirname($scope.newFilePath);
+                var file = SaveTranslationsService.writeTranslationTree(location, translation);
             };
         });
 

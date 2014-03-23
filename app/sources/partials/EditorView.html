@@ -1,7 +1,11 @@
-<input ng-model="newFilePath" type="text" />
-<button ng-click="loadTranslation()">Load</button>
-<button ng-click="forceNormalize()">Force Normalize</button>
-<button ng-click="saveFiles()">Save Files</button>
+<div class="input-group">
+  <input ng-model="newFilePath" type="text" class="form-control">
+  <span class="input-group-btn">
+  	<button ng-click="loadTranslation()" class="btn btn-default">Load</button>
+  	<button ng-click="forceNormalize()" class="btn btn-default">Force Normalize</button>
+	<button ng-click="saveFiles()" class="btn btn-default">Save Files</button>
+  </span>
+</div>
 
 <tabset>
 	<tab ng-repeat="file in files" heading="{{file.name}}">
