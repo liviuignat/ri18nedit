@@ -5,8 +5,8 @@
   "version": "0.0.0",
   "window": {
     "title": "node-webkit demo",
-    "toolbar": false,
-    "frame": true
+    "frame": true,
+    "toolbar": true
   },
   "webkit": {
     "plugin": false
