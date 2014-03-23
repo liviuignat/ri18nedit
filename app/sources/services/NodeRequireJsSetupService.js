@@ -13,7 +13,7 @@
 						});
 					}
 				} catch (err) {
-					alert('require js was not inits');
+					//alert('require js was not inits');
 				}
 
 		 	}

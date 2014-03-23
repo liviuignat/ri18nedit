@@ -12,7 +12,7 @@
 						content = requirejs(path);
 					return content;
 		 		} catch(ex) {
-		 			alert(ex);
+		 			//alert(ex);
 		 		}
 		 	}
 		 };

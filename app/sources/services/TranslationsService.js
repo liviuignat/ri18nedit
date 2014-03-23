@@ -8,13 +8,28 @@
 						{
 							name: 'en-US',
 							content: {
-								value: 'in english'
+								value: 'in english',
+								val1: '1',
+								array: [
+									{
+										o1: { val1: 'a1' }
+									},
+									'a',
+									[]
+								],
+								obj: {
+									o1: {},
+									o2: [],
+									o3: 'o3'
+								}
 							}
 						},
 						{
 							name: 'ro-RO',
 							content: {
-								value: 'in romana'
+								value: 'in romana',
+								val2: '2',
+								array1: 'test1'
 							}
 						}
 					]

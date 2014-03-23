@@ -2,15 +2,20 @@
   'use strict';
 
   controllers.controller('EditorController',
-    function ($scope, $filter, TranslationsService, NodeRequireJsSetupService, NodeFileReaderService) {
+    function ($scope, $filter, TranslationsService, NodeRequireJsSetupService, NodeFileReaderService, JSONSyncService) {
 
     NodeRequireJsSetupService.init();
     var global = NodeFileReaderService.requireJs('Work/_Heroku/pds/PresentDoodle/nls/global');
     var globalRo = NodeFileReaderService.requireJs('Work/_Heroku/pds/PresentDoodle/nls/ro-RO/global');
 
     var translations = TranslationsService.getTranslations();
-    translations.files[0].languages[0].content = global.root;
-    translations.files[0].languages[1].content = globalRo;
+    /*translations.files[0].languages[0].content = global.root;
+    translations.files[0].languages[1].content = globalRo;*/
+
+
+
+
+    JSONSyncService.syncObject(translations.files[0].languages[0].content, translations.files[0].languages[1].content);
 
     $scope.files = translations.files;
 
@@ -18,14 +23,9 @@
       return $filter('json')(json);
     };
 
-
-    /*$scope.jsonData = translations;
-    $scope.$watch('jsonData', function(json) {
-        $scope.jsonString = $filter('json')(json);
+    $scope.$watch('files[0].languages[0].content', function(a, b, c, d) {
+        JSONSyncService.syncObject(a, translations.files[0].languages[1].content);
     }, true);
-    $scope.$watch('jsonString', function(json) {
-        $scope.jsonData = JSON.parse(json);
-    }, true);*/
   });
 
 })(controllers);
