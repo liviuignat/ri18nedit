@@ -22,6 +22,7 @@
     "angular-resource": "~1.2.14",
     "angular-cache": "~2.3.3",
     "JSONedit": "https://github.com/liviuignat/JSONedit.git",
-    "jquery-ui": "~1.10.4"
+    "jquery-ui": "~1.10.4",
+    "bootbox": "~4.2.0"
   }
 }

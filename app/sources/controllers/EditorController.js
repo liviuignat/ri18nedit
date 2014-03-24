@@ -2,7 +2,7 @@
     'use strict';
 
     controllers.controller('EditorController',
-        function($scope, $filter, TranslationsService, NodeRequireJsSetupService, NodeFileReaderService, JSONSyncService, NodeLoadTranslationsService, SaveTranslationsService, LoadingService) {
+        function($scope, $filter, TranslationsService, NodeRequireJsSetupService, NodeFileReaderService, JSONSyncService, NodeLoadTranslationsService, SaveTranslationsService, LoadingService, ConfirmationService) {
 
             $scope.filePath = {},
             NodeRequireJsSetupService.init();
@@ -52,14 +52,18 @@
             };
 
             $scope.saveFiles = function() {
-                var path = require('path'),
-                    filePath = $scope.filePath.file.value,
-                    translation = $scope.files[0],
-                    location = path.dirname(filePath);
+                ConfirmationService.confirm('Saving will override the files. Are you sure you want to proceed?', function (result) {
+                    if(result) {
+                        var path = require('path'),
+                            filePath = $scope.filePath.file.value,
+                            translation = $scope.files[0],
+                            location = path.dirname(filePath);
 
-                LoadingService.show();
-                var file = SaveTranslationsService.writeTranslationTree(location, translation, function (err) {
-                    LoadingService.hide();
+                        LoadingService.show();
+                        SaveTranslationsService.writeTranslationTree(location, translation, function (err) {
+                            LoadingService.hide();
+                        });
+                    }
                 });
             };
         });

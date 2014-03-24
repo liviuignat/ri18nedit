@@ -20,7 +20,7 @@
         };
     });
 
-    app.directive('json', function($compile, $timeout) {
+    app.directive('json', function($compile, $timeout, ConfirmationService) {
         return {
             restrict: 'E',
             scope: {
@@ -72,13 +72,19 @@
                 };
                 scope.deleteKey = function(obj, key) {
                     if (getType(obj) == "Object") {
-                        if (confirm('Delete "' + key + '" and all it contains?')) {
-                            delete obj[key];
-                        }
+                        ConfirmationService.confirm('Delete "' + key + '" and all it contains?', function (result) {
+                            if(result) {
+                                delete obj[key];
+                                scope.$apply();
+                            }
+                        });
                     } else if (getType(obj) == "Array") {
-                        if (confirm('Delete "' + obj[key] + '"?')) {
-                            obj.splice(key, 1);
-                        }
+                        ConfirmationService.confirm('Delete "' + obj[key] + '"?', function (result) {
+                            if(result) {
+                                obj.splice(key, 1);
+                                scope.$apply();
+                            }
+                        });
                     } else {
                         console.error("object to delete from was " + obj);
                     }
@@ -93,32 +99,39 @@
                         } else if (scope.keyName.indexOf("_") == 0) {
                             alert("The name may not start with _ (the underscore)");
                         } else {
-                            if (obj[scope.keyName]) {
-                                if (!confirm('An item with the name "' + scope.keyName + '" exists already. Do you really want to replace it?')) {
-                                    return;
+                            var doIt = function () {
+                                switch (scope.valueType) {
+                                    case stringName:
+                                        obj[scope.keyName] = scope.valueName ? scope.possibleNumber(scope.valueName) : "";
+                                        break;
+                                    case objectName:
+                                        obj[scope.keyName] = {};
+                                        break;
+                                    case arrayName:
+                                        obj[scope.keyName] = [];
+                                        break;
+                                    case refName:
+                                        obj[scope.keyName] = {
+                                            "Reference!!!!": "todo"
+                                        };
+                                        break;
                                 }
+                                //clean-up
+                                scope.keyName = "";
+                                scope.valueName = "";
+                                scope.showAddKey = false;
+                            };
+                            if (obj[scope.keyName]) {
+                                ConfirmationService.confirm('An item with the name "' + scope.keyName + '" exists already. Do you really want to replace it?', function (result) {
+                                    if(result) {
+                                        doIt();
+                                        scope.$apply();
+                                    }
+                                });
+                            } else{
+                                doIt();
                             }
-                            // add item to object
-                            switch (scope.valueType) {
-                                case stringName:
-                                    obj[scope.keyName] = scope.valueName ? scope.possibleNumber(scope.valueName) : "";
-                                    break;
-                                case objectName:
-                                    obj[scope.keyName] = {};
-                                    break;
-                                case arrayName:
-                                    obj[scope.keyName] = [];
-                                    break;
-                                case refName:
-                                    obj[scope.keyName] = {
-                                        "Reference!!!!": "todo"
-                                    };
-                                    break;
-                            }
-                            //clean-up
-                            scope.keyName = "";
-                            scope.valueName = "";
-                            scope.showAddKey = false;
+
                         }
                     } else if (getType(obj) == "Array") {
                         // add item to array
