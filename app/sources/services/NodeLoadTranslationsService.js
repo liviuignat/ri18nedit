@@ -9,8 +9,17 @@
                 };
             };
 
-            var getLangsFromFile = function() {
-                return ['ro-RO', 'de-DE'];
+            var getMainLanguage = function () {
+                return 'en-US';
+            };
+
+            var getLangsFromFile = function(mainFile) {
+                var keys = Object.keys(mainFile),
+                    langs = keys.filter(function (key) {
+                      return key !== 'root';
+                    });
+
+                return langs;
             }
 
             return {
@@ -19,12 +28,13 @@
                         fileName = path.basename(filePath),
                         fileModule = path.basename(filePath).replace('.js', ''),
                         directory = path.dirname(filePath).toLowerCase().replace('c:\\', '').replace(/\\/g, '/'),
-                        requirePath = directory + '/' + fileModule;
+                        requirePath = directory + '/' + fileModule,
+                        mainLanguage = getMainLanguage();
 
                     var mainFile = nodeFileReaderService.requireJs(requirePath);
 
                     var langs = [];
-                    var root = createLangObject('en-US', mainFile.root, true);
+                    var root = createLangObject(mainLanguage, mainFile.root, true);
                     root.langs = [];
                     langs.push(root);
 
