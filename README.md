@@ -26,4 +26,8 @@ How to set up:
 * go to main folder, cmd: <code>$ cd ..</code>
 * build exe file, cmd: <code>$ build.bat</code>
 
+Screenshot:
+
+![Image](screenshots/ri18nedit.png)
+
 
