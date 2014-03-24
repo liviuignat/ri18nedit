@@ -16,6 +16,7 @@ Project developed with the help of:
 * AngularJS (http://angularjs.org/)
 * NodeJS (http://www.nodejs.org/)
 * node-webkit (https://github.com/rogerwang/node-webkit)
+* AngularJS JSONedit directive (https://github.com/mb21/JSONedit)
 
 How to set up:
 * be sure you have NodeJS installed
