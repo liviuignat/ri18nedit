@@ -16,6 +16,7 @@ Project developed with the help of:
 * AngularJS (http://angularjs.org/)
 * NodeJS (http://www.nodejs.org/)
 * node-webkit (https://github.com/rogerwang/node-webkit)
+* AngularJS JSONedit directive (https://github.com/mb21/JSONedit)
 
 How to set up:
 * be sure you have NodeJS installed
@@ -25,5 +26,9 @@ How to set up:
 * cmd: <code>$ npm install</code>
 * go to main folder, cmd: <code>$ cd ..</code>
 * build exe file, cmd: <code>$ build.bat</code>
+
+Screenshot:
+
+![Image](screenshots/ri18nedit.png)
 
 
