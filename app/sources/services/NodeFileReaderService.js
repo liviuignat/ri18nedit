@@ -10,13 +10,10 @@
                     return content;
                 },
                 requireJs: function(path) {
-                    try {
-                        var requirejs = require('requirejs'),
-                            content = requirejs(path);
-                        return content;
-                    } catch (ex) {
-                        alert('NodeFileReaderService exception' + ex);
-                    }
+                    var requirejs = require('requirejs'),
+                        content = requirejs(path);
+                    return content;
+
                 }
             };
         }

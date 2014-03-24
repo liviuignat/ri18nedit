@@ -35,17 +35,18 @@
                 },
                 writeTranslationTree: function(filePath, translations) {
                     var that = this,
-                        fileName = 'auth.js',
                         path = require('path'),
                         fs = require('fs');
+                    debugger;
+                    var fileName = translations.name;
 
                     translations.languages.forEach(function(translation) {
                         var pathToSave = path.join(filePath, fileName);
                         if (!translation.isRoot) {
-                            var pathExists = path.existsSync(pathToSave);
+                            var pathExists = fs.existsSync(pathToSave);
 
-                            if (pathExists) {
-                                fs.mkdir(path.join(filePath, translation.name));
+                            if (!pathExists) {
+                                fs.mkdirSync(path.join(filePath, translation.name));
                             }
 
                             pathToSave = path.join(filePath, translation.name, fileName);

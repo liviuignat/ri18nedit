@@ -16,9 +16,10 @@
             return {
                 loadTranslationFiles: function(filePath) {
                     var path = require('path'),
-                        fileName = path.basename(filePath).replace('.js', ''),
-                        directory = path.dirname(filePath).replace('C:\\', '').replace(/\\/g, '/'),
-                        requirePath = directory + '/' + fileName;
+                        fileName = path.basename(filePath),
+                        fileModule = path.basename(filePath).replace('.js', ''),
+                        directory = path.dirname(filePath).toLowerCase().replace('c:\\', '').replace(/\\/g, '/'),
+                        requirePath = directory + '/' + fileModule;
 
                     var mainFile = nodeFileReaderService.requireJs(requirePath);
 
@@ -30,8 +31,20 @@
                     var foreignLangs = getLangsFromFile(mainFile);
 
                     foreignLangs.forEach(function(foreignLang) {
-                        var foreignLangPath = directory + '/' + foreignLang + '/' + fileName;
-                        var foreignLangFile = nodeFileReaderService.requireJs(foreignLangPath);
+                        var foreignLangPath = directory + '/' + foreignLang + '/' + fileModule,
+                            foreignLangFile,
+                            success = true;
+                        try {
+                            foreignLangFile = nodeFileReaderService.requireJs(foreignLangPath);
+                            success = typeof foreignLangFile !== 'undefined';
+                        } catch(ex) {
+                            success = false;
+                        }
+
+                        if(!success) {
+                            foreignLangFile = {};
+                        }
+
                         langs.push(createLangObject(foreignLang, foreignLangFile, false));
                         root.langs.push(foreignLang);
                     });

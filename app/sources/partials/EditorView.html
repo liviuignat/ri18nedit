@@ -1,9 +1,10 @@
+
 <div class="input-group">
-  <input ng-model="newFilePath" type="text" class="form-control">
+  <input type="file" data-file="filePath.file" class="form-control"/>
   <span class="input-group-btn">
-  	<button ng-click="loadTranslation()" class="btn btn-default">Load</button>
-  	<button ng-click="forceNormalize()" class="btn btn-default">Force Normalize</button>
-	<button ng-click="saveFiles()" class="btn btn-default">Save Files</button>
+  	<button ng-click="loadTranslation()" class="btn btn-default" ng-disabled="areButtonsEnabled()">Load</button>
+  	<button ng-click="forceSync()" class="btn btn-default" ng-disabled="areButtonsEnabled()">Sync</button>
+	<button ng-click="saveFiles()" class="btn btn-default" ng-disabled="areButtonsEnabled()">Save Files</button>
   </span>
 </div>
 
