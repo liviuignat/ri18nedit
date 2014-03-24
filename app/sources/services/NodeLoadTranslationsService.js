@@ -23,47 +23,72 @@
             }
 
             return {
-                loadTranslationFiles: function(filePath) {
-                    var path = require('path'),
+                loadTranslationFiles: function(filePath, callback) {
+                    var async = require('async'),
+                        path = require('path'),
                         fileName = path.basename(filePath),
-                        fileModule = path.basename(filePath).replace('.js', ''),
-                        directory = path.dirname(filePath).toLowerCase().replace('c:\\', '').replace(/\\/g, '/'),
-                        requirePath = directory + '/' + fileModule,
+                        directory = path.dirname(filePath).toLowerCase(),
                         mainLanguage = getMainLanguage();
 
-                    var mainFile = nodeFileReaderService.requireJs(requirePath);
+                    var langs = [],
+                        mainFile,
+                        root;
 
-                    var langs = [];
-                    var root = createLangObject(mainLanguage, mainFile.root, true);
-                    root.langs = [];
-                    langs.push(root);
+                    async.series([
+                        function (done) {
+                            try {
+                                mainFile = nodeFileReaderService.requireJs(filePath);
+                                root = createLangObject(mainLanguage, mainFile.root, true);
+                                root.langs = [];
+                                langs.push(root);
 
-                    var foreignLangs = getLangsFromFile(mainFile);
+                                done(null);
+                            } catch (ex) {
+                                done(ex);
+                            }
+                        },
+                        function (done) {
+                            var foreignLangs = getLangsFromFile(mainFile);
+                            async.forEach(
+                                foreignLangs,
+                                function (foreignLang, done) {
+                                    try {
+                                        var foreignLangPath = path.join(directory, foreignLang, fileName),
+                                            foreignLangFile,
+                                            success = true;
+                                        try {
+                                            foreignLangFile = nodeFileReaderService.requireJs(foreignLangPath);
+                                            success = typeof foreignLangFile !== 'undefined';
+                                        } catch(ex) {
+                                            success = false;
+                                        }
 
-                    foreignLangs.forEach(function(foreignLang) {
-                        var foreignLangPath = directory + '/' + foreignLang + '/' + fileModule,
-                            foreignLangFile,
-                            success = true;
-                        try {
-                            foreignLangFile = nodeFileReaderService.requireJs(foreignLangPath);
-                            success = typeof foreignLangFile !== 'undefined';
-                        } catch(ex) {
-                            success = false;
+                                        if(!success) {
+                                            foreignLangFile = {};
+                                        }
+
+                                        langs.push(createLangObject(foreignLang, foreignLangFile, false));
+                                        root.langs.push(foreignLang);
+                                        done(null);
+                                    } catch (ex) {
+                                        debugger;
+                                        done(ex);
+                                    }
+                                },
+                                function (err) {
+                                    done(err);
+                                }
+                            );
                         }
-
-                        if(!success) {
-                            foreignLangFile = {};
+                    ], function (err) {
+                        var files = {
+                            name: fileName,
+                            languages: langs
+                        };
+                        if(typeof callback === 'function') {
+                            callback(err, files);
                         }
-
-                        langs.push(createLangObject(foreignLang, foreignLangFile, false));
-                        root.langs.push(foreignLang);
                     });
-                    var files = {
-                        name: fileName,
-                        languages: langs
-                    };
-
-                    return files;
                 }
             };
         }

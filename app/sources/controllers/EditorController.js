@@ -2,7 +2,8 @@
     'use strict';
 
     controllers.controller('EditorController',
-        function($scope, $filter, TranslationsService, NodeRequireJsSetupService, NodeFileReaderService, JSONSyncService, NodeLoadTranslationsService, SaveTranslationsService) {
+        function($scope, $filter, TranslationsService, NodeRequireJsSetupService, NodeFileReaderService, JSONSyncService, NodeLoadTranslationsService, SaveTranslationsService, LoadingService) {
+
             $scope.filePath = {},
             NodeRequireJsSetupService.init();
 
@@ -24,14 +25,19 @@
                 var translation,
                     filePath = $scope.filePath.file.value;
 
-                TranslationsService.setTranslations([]);
                 try {
-                    var translation = NodeLoadTranslationsService.loadTranslationFiles(filePath);
+                    LoadingService.show();
+                    NodeLoadTranslationsService.loadTranslationFiles(filePath, function (err, translation) {
+                        LoadingService.hide();
+                        if(err) {
+                            alert(err);
+                        }
+
+                        TranslationsService.setTranslations([]);
+                        TranslationsService.addFile(translation);
+                        $scope.files = TranslationsService.getTranslations().files;
+                    });
                 } catch (ex) {}
-
-                TranslationsService.addFile(translation);
-
-                $scope.files = TranslationsService.getTranslations().files;
             };
 
             $scope.forceSync = function() {
@@ -51,8 +57,10 @@
                     translation = $scope.files[0],
                     location = path.dirname(filePath);
 
-                debugger;
-                var file = SaveTranslationsService.writeTranslationTree(location, translation);
+                LoadingService.show();
+                var file = SaveTranslationsService.writeTranslationTree(location, translation, function (err) {
+                    LoadingService.hide();
+                });
             };
         });
 

@@ -9,7 +9,6 @@
                         if (!isInitialized) {
                             var requirejs = require('requirejs');
                             requirejs.config({
-                                baseUrl: 'C:\\',
                                 nodeRequire: require
                             });
                         }

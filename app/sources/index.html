@@ -18,9 +18,16 @@
     <script src="libs/JSONedit/lib/angular-ui/multiSortable.js"></script>
   </head>
   <body ng-app="rie">
-    <div class="main-container container" ng-view=""></div>
+    <div class="loading-panel" style="display:none;">
+        <div class="icon-container">
+            <div class="loading-icon spin" /></div>
+        </div>
+    </div>
+
+    <div class="main-container" ng-view=""></div>
 
     <script src="app.js"></script>
+    <script src="services/LoadingService.js"></script>
     <script src="services/JSONSyncService.js"></script>
     <script src="services/NodeLoadTranslationsService.js"></script>
     <script src="services/SaveTranslationsService.js"></script>
