@@ -3,6 +3,8 @@ ri18nedit
 
 RequireJS i18next (http://requirejs.org/docs/api.html#i18n) property editor.
 
+Executable that allows you to manage your RequireJS i18next translation files in a very friendly GUI, which can be very hard to achieve manually when you have a lot of languages to maintain.
+
 Features:
 * Open a translation main file by browsing to the file
 * Automatically detects related languages and loads them
