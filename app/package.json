@@ -6,7 +6,7 @@
   "window": {
     "title": "node-webkit demo",
     "frame": true,
-    "toolbar": true
+    "toolbar": false
   },
   "webkit": {
     "plugin": false

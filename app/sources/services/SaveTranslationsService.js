@@ -43,14 +43,14 @@
                     translations.languages.forEach(function(translation) {
                         var pathToSave = path.join(filePath, fileName);
                         if (!translation.isRoot) {
-                            var pathExists = fs.existsSync(pathToSave);
-
-                            if (!pathExists) {
-                                fs.mkdirSync(path.join(filePath, translation.name));
-                            }
-
                             pathToSave = path.join(filePath, translation.name, fileName);
                         }
+
+                        var pathExists = fs.existsSync(pathToSave);
+                        if (!pathExists) {
+                            fs.mkdirSync(path.join(filePath, translation.name));
+                        }
+
                         that.writeTranslationFile(pathToSave, translation);
                     });
                 }
